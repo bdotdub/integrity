@@ -31,7 +31,8 @@ class MigrationsTest < Test::Unit::TestCase
   test "upgrading a pre migration database" do
     capture_stdout { Integrity.migrate_db }
 
-    current_migrations.should == ["initial", "add_commits", "add_enabled_column"]
+    current_migrations.should == ["initial", "add_commits", "add_enabled_column",
+      "add_scm_kind_column"]
     assert table_exists?("integrity_projects")
     assert table_exists?("integrity_builds")
     assert table_exists?("integrity_notifiers")
@@ -42,7 +43,8 @@ class MigrationsTest < Test::Unit::TestCase
     load_initial_migration_fixture
 
     capture_stdout { Integrity.migrate_db }
-    current_migrations.should == ["initial", "add_commits", "add_enabled_column"]
+    current_migrations.should == ["initial", "add_commits", "add_enabled_column",
+      "add_scm_kind_column"]
 
     sinatra = Project.first(:name => "Sinatra")
     sinatra.should have(1).commits

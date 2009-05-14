@@ -46,6 +46,12 @@ class ProjectTest < Test::Unit::TestCase
       @project.uri.should == Addressable::URI.parse("git://github.com/foca/integrity.git")
     end
 
+    # TODO: name this property 'scm' instead?
+    it "has a kind (SCM)" do
+      @project.kind.should == "git"
+      Project.new.kind.should == "git"
+    end
+
     it "has a branch" do
       @project.branch.should == "master"
     end
@@ -122,6 +128,12 @@ class ProjectTest < Test::Unit::TestCase
     it "requires an URI" do
       lambda do
         Project.gen(:uri => nil).should_not be_valid
+      end.should_not change(Project, :count)
+    end
+
+    it "requires a kind" do
+      lambda do
+        Project.gen(:kind => nil).should_not be_valid
       end.should_not change(Project, :count)
     end
 

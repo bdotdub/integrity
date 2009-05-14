@@ -10,6 +10,7 @@ module Integrity
     property :name,       String,   :nullable => false
     property :permalink,  String
     property :uri,        URI,      :nullable => false, :length => 255
+    property :kind,       String,   :nullable => false, :default => "git"
     property :branch,     String,   :nullable => false, :default => "master"
     property :command,    String,   :nullable => false, :length => 255, :default => "rake"
     property :public,     Boolean,  :default => true

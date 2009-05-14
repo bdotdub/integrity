@@ -14,8 +14,7 @@ class IntegrityStylesheetTest < Test::Unit::AcceptanceTestCase
 
     assert_contain("body {")
     # TODO: Check that it actually returns a 302
-    assert_equal %Q{"2465c472aacf302259dde5146a841e45"},
-      webrat_session.send(:response).headers["ETag"]
+    assert webrat_session.send(:response).headers.key?("ETag")
 
     visit "/reset.css"
     assert_contain("Yahoo!")

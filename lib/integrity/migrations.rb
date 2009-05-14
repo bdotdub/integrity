@@ -147,5 +147,13 @@ module Integrity
         # modify_table(:integrity_notifiers) { drop_column :enabled }
       end
     end
+
+    migration 4, :add_scm_kind_column do
+      up do
+        modify_table :integrity_projects do
+          add_column :kind, String, :default => "git"
+        end
+      end
+    end
   end
 end
